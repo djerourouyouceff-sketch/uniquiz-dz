@@ -1,0 +1,388 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Auth &amp; Notifications Hub - UniQuiz DZ</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">/** @type {import('tailwindcss').Config} */
+globalThis.tailwind = globalThis.tailwind || {};
+globalThis.tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        'navy-brand': '#0B1B3D',
+        'royal-blue': '#1D4ED8',
+        'royal-hover': '#1E40AF',
+        'royal-light': '#EFF6FF',
+        'slate-border': '#CBD5E1',
+        'slate-muted': '#475569',
+        'grade-high': '#15803D',
+        'grade-mid': '#92400E',
+        'grade-low': '#991B1B',
+        'light-primary': '#0B1B3D',
+        'light-on-primary': '#FFFFFF',
+        'light-secondary': '#1D4ED8',
+        'light-on-secondary': '#FFFFFF',
+        'light-surface': '#FFFFFF',
+        'light-on-surface': '#0F172A',
+        'light-surface-variant': '#F1F5F9',
+        'light-on-surface-variant': '#334155',
+        'light-outline': '#94A3B8',
+        'light-outline-variant': '#CBD5E1',
+        'light-success': '#15803D',
+        'light-on-success': '#FFFFFF',
+        'light-warning': '#92400E',
+        'light-on-warning': '#FFFFFF',
+        'light-error': '#991B1B',
+        'light-on-error': '#FFFFFF',
+        'dark-primary': '#93C5FD',
+        'dark-on-primary': '#0B1B3D',
+        'dark-secondary': '#60A5FA',
+        'dark-on-secondary': '#0B1B3D',
+        'dark-surface': '#0B132B',
+        'dark-on-surface': '#F8FAFC',
+        'dark-surface-variant': '#1E293B',
+        'dark-on-surface-variant': '#CBD5E1',
+        'dark-outline': '#334155',
+        'dark-outline-variant': '#1E293B',
+        'dark-success': '#4ADE80',
+        'dark-on-success': '#064E3B',
+        'dark-warning': '#FBBF24',
+        'dark-on-warning': '#78350F',
+        'dark-error': '#F87171',
+        'dark-on-error': '#641717',
+      },
+      borderRadius: {
+        'sm': '4px',
+        'DEFAULT': '6px',
+        'md': '8px',
+        'lg': '12px',
+        'xl': '16px',
+        'full': '9999px',
+      },
+      spacing: {
+        'gutter-xs': '4px',
+        'gutter-sm': '8px',
+        'gutter-md': '16px',
+        'gutter-lg': '24px',
+        'gutter-xl': '32px',
+        'section': '40px',
+        'page-margin': '24px',
+      },
+      fontFamily: {
+        'display': ['"Red Hat Display"', 'sans-serif'],
+        'headline': ['"Red Hat Display"', 'sans-serif'],
+        'title': ['"Red Hat Display"', 'sans-serif'],
+        'body': ['"Radio Canada Big"', 'sans-serif'],
+        'label': ['"Radio Canada Big"', 'sans-serif'],
+        'code': ['"Source Code Pro"', 'monospace'],
+      },
+      fontSize: {
+        'display-lg': ['36px', { lineHeight: '44px', letterSpacing: '-0.5px', fontWeight: '700' }],
+        'display-lg-mobile': ['28px', { lineHeight: '34px', letterSpacing: '-0.25px', fontWeight: '700' }],
+        'headline-xl': ['32px', { lineHeight: '40px', letterSpacing: '-0.5px', fontWeight: '700' }],
+        'headline-xl-mobile': ['24px', { lineHeight: '32px', letterSpacing: '-0.25px', fontWeight: '700' }],
+        'headline-lg': ['24px', { lineHeight: '32px', letterSpacing: '-0.2px', fontWeight: '600' }],
+        'headline-lg-mobile': ['20px', { lineHeight: '28px', letterSpacing: '-0.1px', fontWeight: '600' }],
+        'headline-md': ['20px', { lineHeight: '28px', letterSpacing: '0px', fontWeight: '600' }],
+        'headline-sm': ['18px', { lineHeight: '26px', letterSpacing: '0px', fontWeight: '600' }],
+        'title-lg': ['16px', { lineHeight: '24px', letterSpacing: '0px', fontWeight: '600' }],
+        'body-lg': ['16px', { lineHeight: '24px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-md': ['14px', { lineHeight: '20px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-sm': ['12px', { lineHeight: '16px', letterSpacing: '0px', fontWeight: '400' }],
+        'label-lg': ['14px', { lineHeight: '20px', letterSpacing: '0.1px', fontWeight: '600' }],
+        'label-md': ['12px', { lineHeight: '16px', letterSpacing: '0.2px', fontWeight: '600' }],
+        'label-sm': ['11px', { lineHeight: '14px', letterSpacing: '0.2px', fontWeight: '600' }],
+        'code-md': ['14px', { lineHeight: '20px', letterSpacing: '0px', fontWeight: '500' }],
+      },
+      transitionDuration: {
+        'state-change': '120ms',
+        'surface-enter': '200ms',
+        'surface-exit': '120ms',
+      },
+      transitionDelay: {
+        'state-change': '0ms',
+        'surface-enter': '0ms',
+        'surface-exit': '0ms',
+      },
+      transitionTimingFunction: {
+        'state-change': 'ease-out',
+        'surface-enter': 'cubic-bezier(0.16, 1, 0.3, 1)',
+        'surface-exit': 'cubic-bezier(0.4, 0, 1, 1)',
+      },
+    },
+  },
+};
+if (typeof module !== 'undefined') module.exports = globalThis.tailwind.config;
+</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Radio+Canada+Big:ital,wght@0,400..700;1,400..700&amp;family=Red+Hat+Display:ital,wght@0,400..900;1,400..900&amp;family=Source+Code+Pro:wght@400..700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet">
+  <style>
+    .material-symbols-outlined, .material-symbols-rounded, .material-symbols-sharp, .material-icons {
+      display: inline-block; width: 1em; height: 1em; line-height: 1 !important; box-sizing: content-box; overflow: hidden; white-space: nowrap; direction: ltr; vertical-align: middle;
+    }
+  </style>
+</head>
+<body class="bg-light-surface-variant font-body text-light-on-surface antialiased min-h-[1024px]" data-stitch-vh="min-h-[1024px]===min-h-screen">
+  <div class="min-h-[1024px] flex flex-row" data-stitch-vh="min-h-[1024px]===min-h-screen">
+
+    <!-- Primary Persistent Sidebar (Verbatim Shell parity) -->
+    <aside class="w-64 min-h-[1024px] bg-navy-brand text-light-on-primary flex flex-col justify-between shrink-0 shadow-lg z-20" data-stitch-vh="min-h-[1024px]===min-h-screen">
+      <div class="flex flex-col gap-4">
+        <div class="h-16 px-6 flex items-center gap-3 border-b border-white/10">
+          <div class="w-9 h-9 rounded bg-royal-blue flex items-center justify-center text-white shadow-sm">
+            <span class="material-symbols-outlined text-headline-lg">school</span>
+          </div>
+          <div class="flex flex-col">
+            <span class="font-headline font-bold text-title-lg tracking-tight leading-none text-white">UniQuiz DZ</span>
+            <span class="font-body text-body-sm text-slate-300 mt-1">Univ. Houari Boumediene</span>
+          </div>
+        </div>
+
+        <div class="px-5 py-3 mx-4 bg-white/5 rounded-lg border border-white/10 flex items-center justify-between">
+          <div class="flex items-center gap-2.5">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+            <div>
+              <div class="font-label text-label-sm font-semibold text-white">Enseignant / Teacher</div>
+              <div class="font-body text-body-sm text-slate-300">Génie Mécanique</div>
+            </div>
+          </div>
+          <span class="text-label-sm px-1.5 py-0.5 rounded bg-royal-blue/30 text-blue-200 border border-royal-blue/40 font-code font-bold">DZ</span>
+        </div>
+
+        <nav class="px-3 space-y-1">
+          <a href="../teacher-dashboard/TeacherDashboard.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-300 hover:text-white hover:bg-white/5 font-medium text-label-lg transition-colors">
+            <span class="material-symbols-outlined text-headline-sm">dashboard</span>
+            <span>Dashboard Overview</span>
+          </a>
+          <a href="../quiz-builder/QuizCreationInterface.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-300 hover:text-white hover:bg-white/5 font-medium text-label-lg transition-colors">
+            <span class="material-symbols-outlined text-headline-sm">quiz</span>
+            <span>Quiz &amp; Question Banks</span>
+          </a>
+          <a href="../analytics-reports/ClassAnalyticsAndRanking.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-300 hover:text-white hover:bg-white/5 font-medium text-label-lg transition-colors">
+            <span class="material-symbols-outlined text-headline-sm">leaderboard</span>
+            <span>Analytics &amp; Rankings</span>
+          </a>
+          <a href="../student-exam/StudentExamExperience.html" target="_blank" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-300 hover:text-white hover:bg-white/5 font-medium text-label-lg transition-colors">
+            <span class="material-symbols-outlined text-headline-sm">devices</span>
+            <span>Student Mobile View</span>
+          </a>
+          <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-royal-blue text-white font-medium text-label-lg shadow-sm">
+            <span class="material-symbols-outlined text-headline-sm">tune</span>
+            <span>Settings &amp; Notifications</span>
+          </a>
+        </nav>
+      </div>
+
+      <div class="p-4 border-t border-white/10">
+        <div class="flex items-center justify-between bg-white/5 p-1 rounded-md mb-3 border border-white/10 text-body-sm">
+          <button class="px-2 py-1 rounded bg-royal-blue text-white font-semibold text-label-sm">FR</button>
+          <button class="px-2 py-1 rounded text-slate-300 hover:text-white text-label-sm">EN</button>
+          <button class="px-2 py-1 rounded text-slate-300 hover:text-white text-label-sm">العربية</button>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-royal-light text-royal-blue font-bold flex items-center justify-center font-headline border border-royal-blue/30 text-title-lg">
+            KB
+          </div>
+          <div class="flex-1 min-w-0">
+            <div class="font-headline font-semibold text-label-lg text-white truncate">Dr. Khaled Benali</div>
+            <div class="font-body text-body-sm text-slate-300 truncate">k.benali@usthb.dz</div>
+          </div>
+          <a href="#" class="text-slate-300 hover:text-white" title="Sign out">
+            <span class="material-symbols-outlined text-headline-sm">logout</span>
+          </a>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Workspace Container -->
+    <div class="flex-1 flex flex-col min-w-0">
+
+      <!-- Header Action Bar -->
+      <header class="h-16 bg-light-surface border-b border-light-outline-variant px-8 flex items-center justify-between sticky top-0 z-10">
+        <div>
+          <h1 class="font-headline text-headline-sm text-navy-brand font-bold">Portail Authentification &amp; Notifications Enseignant</h1>
+          <div class="font-body text-body-sm text-slate-muted">Gestion des 3 rôles académiques (Admin, Enseignant, Étudiant) et alertes par courriel</div>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <button class="px-4 py-2 bg-royal-blue text-white rounded hover:bg-royal-hover text-label-lg font-semibold transition-colors shadow-sm">
+            Sauvegarder
+          </button>
+        </div>
+      </header>
+
+      <!-- Main Body Content -->
+      <main class="p-8 space-y-8 flex-1 grid grid-cols-1 lg:grid-cols-12 gap-8">
+
+        <!-- Left Column: Unified Multi-Role Authentication Card (6 cols) -->
+        <div class="lg:col-span-6 space-y-6">
+          <div class="bg-light-surface border border-light-outline-variant rounded-lg p-6 shadow-sm space-y-5">
+            <div class="border-b border-light-outline-variant pb-3 flex items-center justify-between">
+              <div>
+                <h2 class="font-headline text-title-lg text-navy-brand font-bold">Connexion Académique</h2>
+                <p class="font-body text-body-sm text-slate-muted">Authentification institutionnelle via messagerie universitaire</p>
+              </div>
+              <span class="px-2.5 py-1 bg-royal-light text-royal-blue text-label-sm font-semibold rounded border border-blue-200">
+                SSO MESRS
+              </span>
+            </div>
+
+            <!-- Role Selector Radio Matrix -->
+            <div>
+              <label class="block font-label text-label-md text-navy-brand mb-2">Sélectionnez votre rôle dans la faculté:</label>
+              <div class="grid grid-cols-3 gap-2.5">
+                <label class="p-2.5 border-2 border-royal-blue bg-white rounded-lg flex flex-col items-center text-center cursor-pointer shadow-sm">
+                  <input type="radio" name="academic_role" checked class="sr-only">
+                  <span class="material-symbols-outlined text-royal-blue text-headline-sm mb-1">co_present</span>
+                  <span class="font-label text-label-sm font-bold text-royal-blue">Enseignant</span>
+                  <span class="text-label-sm text-slate-700">Teacher</span>
+                </label>
+                <label class="p-2.5 border border-light-outline-variant bg-light-surface rounded-lg flex flex-col items-center text-center cursor-pointer hover:bg-light-surface-variant">
+                  <input type="radio" name="academic_role" class="sr-only">
+                  <span class="material-symbols-outlined text-slate-600 text-headline-sm mb-1">school</span>
+                  <span class="font-label text-label-sm font-semibold text-navy-brand">Étudiant</span>
+                  <span class="text-label-sm text-slate-700">Student</span>
+                </label>
+                <label class="p-2.5 border border-light-outline-variant bg-light-surface rounded-lg flex flex-col items-center text-center cursor-pointer hover:bg-light-surface-variant">
+                  <input type="radio" name="academic_role" class="sr-only">
+                  <span class="material-symbols-outlined text-slate-600 text-headline-sm mb-1">admin_panel_settings</span>
+                  <span class="font-label text-label-sm font-semibold text-navy-brand">Admin</span>
+                  <span class="text-label-sm text-slate-700">Faculté</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Form Inputs -->
+            <div class="space-y-3.5">
+              <div>
+                <label class="block font-label text-label-md text-navy-brand mb-1">Adresse électronique académique (.dz)</label>
+                <div class="relative">
+                  <span class="material-symbols-outlined absolute left-3 top-2.5 text-slate-500 text-label-lg">mail</span>
+                  <input type="email" value="k.benali@usthb.dz" class="w-full pl-9 pr-3 py-2 border border-light-outline rounded bg-light-surface text-body-md text-light-on-surface">
+                </div>
+                <span class="text-label-sm text-slate-muted mt-1 block">Compatible avec tous les domaines @univ-*.dz</span>
+              </div>
+
+              <div>
+                <label class="block font-label text-label-md text-navy-brand mb-1">Mot de passe institutionnel</label>
+                <div class="relative">
+                  <span class="material-symbols-outlined absolute left-3 top-2.5 text-slate-500 text-label-lg">lock</span>
+                  <input type="password" value="••••••••••••" class="w-full pl-9 pr-10 py-2 border border-light-outline rounded bg-light-surface text-body-md text-light-on-surface">
+                  <button class="absolute right-3 top-2.5 text-slate-500 hover:text-navy-brand">
+                    <span class="material-symbols-outlined text-label-lg">visibility</span>
+                  </button>
+                </div>
+              </div>
+
+              <div class="flex items-center justify-between text-body-sm">
+                <label class="flex items-center gap-2 cursor-pointer">
+                  <input type="checkbox" checked class="rounded border-light-outline text-royal-blue focus:ring-royal-blue">
+                  <span class="text-navy-brand">Rester connecté</span>
+                </label>
+                <a href="#" class="text-royal-blue font-semibold hover:underline">Mot de passe oublié?</a>
+              </div>
+
+              <button class="w-full py-2.5 bg-royal-blue text-white rounded text-label-lg font-semibold hover:bg-royal-hover transition-colors shadow-sm">
+                Se Connecter au Tableau
+              </button>
+            </div>
+
+            <div class="pt-4 border-t border-light-outline-variant text-center text-body-sm text-slate-muted">
+              Nouvel enseignant ou étudiant non inscrit?
+              <a href="#" class="text-royal-blue font-semibold hover:underline ml-1">Activer mon compte</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Email Notification Settings for Teachers (6 cols) -->
+        <div class="lg:col-span-6 space-y-6">
+          <div class="bg-light-surface border border-light-outline-variant rounded-lg p-6 shadow-sm space-y-5">
+            <div class="border-b border-light-outline-variant pb-3 flex items-center justify-between">
+              <div>
+                <h2 class="font-headline text-title-lg text-navy-brand font-bold">Notifications par Email</h2>
+                <p class="font-body text-body-sm text-slate-muted">Alertes envoyées à l&#39;enseignant dès la clôture des épreuves</p>
+              </div>
+              <span class="material-symbols-outlined text-royal-blue text-headline-sm">mark_email_read</span>
+            </div>
+
+            <!-- Email Notification Toggles -->
+            <div class="space-y-4">
+
+              <!-- Toggle 1: Instant exam completion PV -->
+              <div class="flex items-center justify-between p-3.5 bg-light-surface-variant rounded-lg border border-light-outline-variant">
+                <div class="pr-3">
+                  <div class="font-label text-label-md font-bold text-navy-brand">Rapport global dès la fin du compte à rebours</div>
+                  <div class="font-body text-body-sm text-slate-700 mt-0.5">
+                    Génère et transmet automatiquement le PV PDF/Excel des délibérations à votre boîte courriel.
+                  </div>
+                </div>
+                <input type="checkbox" checked class="w-5 h-5 rounded text-royal-blue focus:ring-royal-blue cursor-pointer shrink-0">
+              </div>
+
+              <!-- Toggle 2: Immediate student submission notification -->
+              <div class="flex items-center justify-between p-3.5 bg-light-surface-variant rounded-lg border border-light-outline-variant">
+                <div class="pr-3">
+                  <div class="font-label text-label-md font-bold text-navy-brand">Alerte individuelle de soumission</div>
+                  <div class="font-body text-body-sm text-slate-700 mt-0.5">
+                    Notification par email lorsqu&#39;un étudiant valide et soumet sa copie en avance.
+                  </div>
+                </div>
+                <input type="checkbox" class="w-5 h-5 rounded text-royal-blue focus:ring-royal-blue cursor-pointer shrink-0">
+              </div>
+
+              <!-- Toggle 3: Low performance & alert threshold (< 10/20) -->
+              <div class="flex items-center justify-between p-3.5 bg-light-surface-variant rounded-lg border border-light-outline-variant">
+                <div class="pr-3">
+                  <div class="font-label text-label-md font-bold text-navy-brand">Synthèse des étudiants ajournés (&lt; 10 / 20)</div>
+                  <div class="font-body text-body-sm text-slate-700 mt-0.5">
+                    Rapport de remédiation listant les questions où le taux d&#39;échec dépasse 50% pour les TD de rattrapage.
+                  </div>
+                </div>
+                <input type="checkbox" checked class="w-5 h-5 rounded text-royal-blue focus:ring-royal-blue cursor-pointer shrink-0">
+              </div>
+
+              <!-- Toggle 4: Student integrity alerts -->
+              <div class="flex items-center justify-between p-3.5 bg-light-surface-variant rounded-lg border border-light-outline-variant">
+                <div class="pr-3">
+                  <div class="font-label text-label-md font-bold text-navy-brand">Journal de surveillance anti-fraude</div>
+                  <div class="font-body text-body-sm text-slate-700 mt-0.5">
+                    Rapport consignant les étudiants ayant quitté l&#39;onglet d&#39;examen pendant l&#39;épreuve.
+                  </div>
+                </div>
+                <input type="checkbox" checked class="w-5 h-5 rounded text-royal-blue focus:ring-royal-blue cursor-pointer shrink-0">
+              </div>
+
+            </div>
+
+            <!-- Email Delivery Target Summary -->
+            <div class="p-3 bg-blue-50 border border-blue-200 rounded-lg flex items-center justify-between text-body-sm">
+              <div class="flex items-center gap-2 text-navy-brand">
+                <span class="material-symbols-outlined text-royal-blue text-label-lg">forward_to_inbox</span>
+                <span>Destinataire: <strong>k.benali@usthb.dz</strong></span>
+              </div>
+              <button class="text-royal-blue font-semibold hover:underline text-label-sm">Modifier</button>
+            </div>
+
+          </div>
+        </div>
+
+      </main>
+
+      <!-- Institutional Footer Note (Verbatim shell) -->
+      <footer class="h-12 bg-light-surface border-t border-light-outline-variant px-8 flex items-center justify-between text-body-sm text-slate-muted">
+        <div>UniQuiz DZ • Plateforme Nationale d&#39;Évaluation Universitaire • Ministère de l&#39;Enseignement Supérieur (MESRS)</div>
+        <div class="flex items-center gap-4">
+          <span>Serveur Alger-Centre (Opérationnel)</span>
+          <span class="font-code text-label-sm">v2.4.8-dz</span>
+        </div>
+      </footer>
+    </div>
+
+  </div>
+
+
+</body></html>

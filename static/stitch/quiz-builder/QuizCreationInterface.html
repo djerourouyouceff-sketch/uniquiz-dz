@@ -1,0 +1,505 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz &amp; Question Editor - UniQuiz DZ</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">/** @type {import('tailwindcss').Config} */
+globalThis.tailwind = globalThis.tailwind || {};
+globalThis.tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        'navy-brand': '#0B1B3D',
+        'royal-blue': '#1D4ED8',
+        'royal-hover': '#1E40AF',
+        'royal-light': '#EFF6FF',
+        'slate-border': '#CBD5E1',
+        'slate-muted': '#475569',
+        'grade-high': '#15803D',
+        'grade-mid': '#92400E',
+        'grade-low': '#991B1B',
+        'light-primary': '#0B1B3D',
+        'light-on-primary': '#FFFFFF',
+        'light-secondary': '#1D4ED8',
+        'light-on-secondary': '#FFFFFF',
+        'light-surface': '#FFFFFF',
+        'light-on-surface': '#0F172A',
+        'light-surface-variant': '#F1F5F9',
+        'light-on-surface-variant': '#334155',
+        'light-outline': '#94A3B8',
+        'light-outline-variant': '#CBD5E1',
+        'light-success': '#15803D',
+        'light-on-success': '#FFFFFF',
+        'light-warning': '#92400E',
+        'light-on-warning': '#FFFFFF',
+        'light-error': '#991B1B',
+        'light-on-error': '#FFFFFF',
+        'dark-primary': '#93C5FD',
+        'dark-on-primary': '#0B1B3D',
+        'dark-secondary': '#60A5FA',
+        'dark-on-secondary': '#0B1B3D',
+        'dark-surface': '#0B132B',
+        'dark-on-surface': '#F8FAFC',
+        'dark-surface-variant': '#1E293B',
+        'dark-on-surface-variant': '#CBD5E1',
+        'dark-outline': '#334155',
+        'dark-outline-variant': '#1E293B',
+        'dark-success': '#4ADE80',
+        'dark-on-success': '#064E3B',
+        'dark-warning': '#FBBF24',
+        'dark-on-warning': '#78350F',
+        'dark-error': '#F87171',
+        'dark-on-error': '#641717',
+      },
+      borderRadius: {
+        'sm': '4px',
+        'DEFAULT': '6px',
+        'md': '8px',
+        'lg': '12px',
+        'xl': '16px',
+        'full': '9999px',
+      },
+      spacing: {
+        'gutter-xs': '4px',
+        'gutter-sm': '8px',
+        'gutter-md': '16px',
+        'gutter-lg': '24px',
+        'gutter-xl': '32px',
+        'section': '40px',
+        'page-margin': '24px',
+      },
+      fontFamily: {
+        'display': ['"Red Hat Display"', 'sans-serif'],
+        'headline': ['"Red Hat Display"', 'sans-serif'],
+        'title': ['"Red Hat Display"', 'sans-serif'],
+        'body': ['"Radio Canada Big"', 'sans-serif'],
+        'label': ['"Radio Canada Big"', 'sans-serif'],
+        'code': ['"Source Code Pro"', 'monospace'],
+      },
+      fontSize: {
+        'display-lg': ['36px', { lineHeight: '44px', letterSpacing: '-0.5px', fontWeight: '700' }],
+        'display-lg-mobile': ['28px', { lineHeight: '34px', letterSpacing: '-0.25px', fontWeight: '700' }],
+        'headline-xl': ['32px', { lineHeight: '40px', letterSpacing: '-0.5px', fontWeight: '700' }],
+        'headline-xl-mobile': ['24px', { lineHeight: '32px', letterSpacing: '-0.25px', fontWeight: '700' }],
+        'headline-lg': ['24px', { lineHeight: '32px', letterSpacing: '-0.2px', fontWeight: '600' }],
+        'headline-lg-mobile': ['20px', { lineHeight: '28px', letterSpacing: '-0.1px', fontWeight: '600' }],
+        'headline-md': ['20px', { lineHeight: '28px', letterSpacing: '0px', fontWeight: '600' }],
+        'headline-sm': ['18px', { lineHeight: '26px', letterSpacing: '0px', fontWeight: '600' }],
+        'title-lg': ['16px', { lineHeight: '24px', letterSpacing: '0px', fontWeight: '600' }],
+        'body-lg': ['16px', { lineHeight: '24px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-md': ['14px', { lineHeight: '20px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-sm': ['12px', { lineHeight: '16px', letterSpacing: '0px', fontWeight: '400' }],
+        'label-lg': ['14px', { lineHeight: '20px', letterSpacing: '0.1px', fontWeight: '600' }],
+        'label-md': ['12px', { lineHeight: '16px', letterSpacing: '0.2px', fontWeight: '600' }],
+        'label-sm': ['11px', { lineHeight: '14px', letterSpacing: '0.2px', fontWeight: '600' }],
+        'code-md': ['14px', { lineHeight: '20px', letterSpacing: '0px', fontWeight: '500' }],
+      },
+      transitionDuration: {
+        'state-change': '120ms',
+        'surface-enter': '200ms',
+        'surface-exit': '120ms',
+      },
+      transitionDelay: {
+        'state-change': '0ms',
+        'surface-enter': '0ms',
+        'surface-exit': '0ms',
+      },
+      transitionTimingFunction: {
+        'state-change': 'ease-out',
+        'surface-enter': 'cubic-bezier(0.16, 1, 0.3, 1)',
+        'surface-exit': 'cubic-bezier(0.4, 0, 1, 1)',
+      },
+    },
+  },
+};
+if (typeof module !== 'undefined') module.exports = globalThis.tailwind.config;
+</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Radio+Canada+Big:ital,wght@0,400..700;1,400..700&amp;family=Red+Hat+Display:ital,wght@0,400..900;1,400..900&amp;family=Source+Code+Pro:wght@400..700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet">
+  <style>
+    .material-symbols-outlined, .material-symbols-rounded, .material-symbols-sharp, .material-icons {
+      display: inline-block; width: 1em; height: 1em; line-height: 1 !important; box-sizing: content-box; overflow: hidden; white-space: nowrap; direction: ltr; vertical-align: middle;
+    }
+  </style>
+</head>
+<body class="bg-light-surface-variant font-body text-light-on-surface antialiased min-h-[1024px]" data-stitch-vh="min-h-[1024px]===min-h-screen">
+  <div class="min-h-[1024px] flex flex-row" data-stitch-vh="min-h-[1024px]===min-h-screen">
+
+    <!-- Primary Persistent Sidebar (Verbatim Shell parity) -->
+    <aside class="w-64 min-h-[1024px] bg-navy-brand text-light-on-primary flex flex-col justify-between shrink-0 shadow-lg z-20" data-stitch-vh="min-h-[1024px]===min-h-screen">
+      <div class="flex flex-col gap-4">
+        <div class="h-16 px-6 flex items-center gap-3 border-b border-white/10">
+          <div class="w-9 h-9 rounded bg-royal-blue flex items-center justify-center text-white shadow-sm">
+            <span class="material-symbols-outlined text-headline-lg">school</span>
+          </div>
+          <div class="flex flex-col">
+            <span class="font-headline font-bold text-title-lg tracking-tight leading-none text-white">UniQuiz DZ</span>
+            <span class="font-body text-body-sm text-slate-300 mt-1">Univ. Houari Boumediene</span>
+          </div>
+        </div>
+
+        <div class="px-5 py-3 mx-4 bg-white/5 rounded-lg border border-white/10 flex items-center justify-between">
+          <div class="flex items-center gap-2.5">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+            <div>
+              <div class="font-label text-label-sm font-semibold text-white">Enseignant / Teacher</div>
+              <div class="font-body text-body-sm text-slate-300">Génie Mécanique</div>
+            </div>
+          </div>
+          <span class="text-label-sm px-1.5 py-0.5 rounded bg-royal-blue/30 text-blue-200 border border-royal-blue/40 font-code font-bold">DZ</span>
+        </div>
+
+        <nav class="px-3 space-y-1">
+          <a href="../teacher-dashboard/TeacherDashboard.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-300 hover:text-white hover:bg-white/5 font-medium text-label-lg transition-colors">
+            <span class="material-symbols-outlined text-headline-sm">dashboard</span>
+            <span>Dashboard Overview</span>
+          </a>
+          <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-royal-blue text-white font-medium text-label-lg shadow-sm">
+            <span class="material-symbols-outlined text-headline-sm">quiz</span>
+            <span>Quiz &amp; Question Banks</span>
+          </a>
+          <a href="../analytics-reports/ClassAnalyticsAndRanking.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-300 hover:text-white hover:bg-white/5 font-medium text-label-lg transition-colors">
+            <span class="material-symbols-outlined text-headline-sm">leaderboard</span>
+            <span>Analytics &amp; Rankings</span>
+          </a>
+          <a href="../student-exam/StudentExamExperience.html" target="_blank" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-300 hover:text-white hover:bg-white/5 font-medium text-label-lg transition-colors">
+            <span class="material-symbols-outlined text-headline-sm">devices</span>
+            <span>Student Mobile View</span>
+          </a>
+          <a href="../auth-notifications/AuthAndNotificationSettings.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-300 hover:text-white hover:bg-white/5 font-medium text-label-lg transition-colors">
+            <span class="material-symbols-outlined text-headline-sm">tune</span>
+            <span>Settings &amp; Notifications</span>
+          </a>
+        </nav>
+      </div>
+
+      <div class="p-4 border-t border-white/10">
+        <div class="flex items-center justify-between bg-white/5 p-1 rounded-md mb-3 border border-white/10 text-body-sm">
+          <button class="px-2 py-1 rounded bg-royal-blue text-white font-semibold text-label-sm">FR</button>
+          <button class="px-2 py-1 rounded text-slate-300 hover:text-white text-label-sm">EN</button>
+          <button class="px-2 py-1 rounded text-slate-300 hover:text-white text-label-sm">العربية</button>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-royal-light text-royal-blue font-bold flex items-center justify-center font-headline border border-royal-blue/30 text-title-lg">
+            KB
+          </div>
+          <div class="flex-1 min-w-0">
+            <div class="font-headline font-semibold text-label-lg text-white truncate">Dr. Khaled Benali</div>
+            <div class="font-body text-body-sm text-slate-300 truncate">k.benali@usthb.dz</div>
+          </div>
+          <a href="../auth-notifications/AuthAndNotificationSettings.html" class="text-slate-300 hover:text-white" title="Sign out">
+            <span class="material-symbols-outlined text-headline-sm">logout</span>
+          </a>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Workspace Container -->
+    <div class="flex-1 flex flex-col min-w-0">
+
+      <!-- Header Action Bar -->
+      <header class="h-16 bg-light-surface border-b border-light-outline-variant px-8 flex items-center justify-between sticky top-0 z-10">
+        <div class="flex items-center gap-3">
+          <a href="../teacher-dashboard/TeacherDashboard.html" class="p-1.5 rounded hover:bg-light-surface-variant text-slate-muted hover:text-navy-brand transition-colors">
+            <span class="material-symbols-outlined text-headline-sm">arrow_back</span>
+          </a>
+          <div>
+            <h1 class="font-headline text-headline-sm text-navy-brand font-bold">Création &amp; Éditeur d&#39;Évaluation</h1>
+            <div class="font-body text-body-sm text-slate-muted">Éditeur bilingue • Barème automatique national (/20 points)</div>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <div class="flex items-center gap-1.5 px-3 py-1 bg-emerald-50 text-grade-high border border-emerald-200 rounded text-label-sm font-semibold">
+            <span class="material-symbols-outlined text-label-md">check</span>
+            <span>Total Points: 20.00 / 20.00 pts</span>
+          </div>
+
+          <button class="px-3.5 py-1.5 border border-light-outline text-navy-brand rounded text-label-md font-semibold hover:bg-light-surface-variant">
+            Aperçu Test
+          </button>
+          <button class="inline-flex items-center gap-2 px-4 py-2 bg-royal-blue text-white rounded hover:bg-royal-hover text-label-lg font-semibold transition-colors shadow-sm">
+            <span class="material-symbols-outlined text-headline-sm">publish</span>
+            <span>Publier l&#39;Examen</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- Main Body Content -->
+      <main class="p-8 flex-1 grid grid-cols-1 xl:grid-cols-12 gap-8">
+
+        <!-- Left Column: Quiz Parameters & Question List (4 cols) -->
+        <div class="xl:col-span-4 space-y-6">
+
+          <!-- Quiz Metadata Configuration Card -->
+          <div class="bg-light-surface border border-light-outline-variant rounded-lg p-5 shadow-sm space-y-4">
+            <h2 class="font-headline text-title-lg text-navy-brand font-bold border-b border-light-outline-variant pb-2">Paramètres du Quiz</h2>
+
+            <div>
+              <label class="block font-label text-label-md text-navy-brand mb-1">Titre de l&#39;évaluation</label>
+              <input type="text" value="Évaluation Sommative 03: Cycles Thermodynamiques &amp; Entropie" class="w-full px-3 py-2 border border-light-outline rounded bg-light-surface text-body-md text-light-on-surface focus:ring-1 focus:ring-royal-blue">
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="block font-label text-label-md text-navy-brand mb-1">Module</label>
+                <select class="w-full px-2.5 py-2 border border-light-outline rounded bg-light-surface text-body-sm font-medium">
+                  <option selected>ME-302 Thermodynamique</option>
+                  <option>ME-301 Mécanique Fluides</option>
+                  <option>ME-405 Turbomachines</option>
+                </select>
+              </div>
+              <div>
+                <label class="block font-label text-label-md text-navy-brand mb-1">Promotion Cible</label>
+                <select class="w-full px-2.5 py-2 border border-light-outline rounded bg-light-surface text-body-sm font-medium">
+                  <option selected>L3 Génie Mécanique</option>
+                  <option>M1 Énergétique</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="block font-label text-label-md text-navy-brand mb-1">Durée (Minutes)</label>
+                <div class="relative">
+                  <input type="number" value="45" class="w-full pl-3 pr-8 py-2 border border-light-outline rounded bg-light-surface text-body-md font-code">
+                  <span class="absolute right-2.5 top-2.5 text-body-sm text-slate-muted">min</span>
+                </div>
+              </div>
+              <div>
+                <label class="block font-label text-label-md text-navy-brand mb-1">Tentatives Max</label>
+                <input type="number" value="1" class="w-full px-3 py-2 border border-light-outline rounded bg-light-surface text-body-md font-code">
+              </div>
+            </div>
+
+            <!-- Auto-Correction & Anti-Fraud Options -->
+            <div class="pt-2 border-t border-light-outline-variant space-y-2.5">
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input type="checkbox" checked class="rounded border-light-outline text-royal-blue focus:ring-royal-blue">
+                <span class="font-body text-body-sm text-navy-brand">Correction automatique instantanée</span>
+              </label>
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input type="checkbox" checked class="rounded border-light-outline text-royal-blue focus:ring-royal-blue">
+                <span class="font-body text-body-sm text-navy-brand">Mélanger l&#39;ordre des questions (Anti-triche)</span>
+              </label>
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input type="checkbox" checked class="rounded border-light-outline text-royal-blue focus:ring-royal-blue">
+                <span class="font-body text-body-sm text-navy-brand">Notifier l&#39;enseignant à la fin du test</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Question Bank Roster -->
+          <div class="bg-light-surface border border-light-outline-variant rounded-lg p-5 shadow-sm space-y-3">
+            <div class="flex items-center justify-between">
+              <h3 class="font-headline text-title-lg text-navy-brand font-bold">Questions (4)</h3>
+              <span class="font-code text-label-sm font-semibold text-royal-blue bg-royal-light px-2 py-0.5 rounded">20.00 pts</span>
+            </div>
+
+            <div class="space-y-2">
+              <!-- Q1 (Selected) -->
+              <div class="p-3 rounded-lg border-2 border-royal-blue bg-royal-light/40 flex items-start justify-between cursor-pointer">
+                <div class="flex gap-2.5">
+                  <span class="w-6 h-6 rounded bg-royal-blue text-white font-code text-label-sm font-bold flex items-center justify-center shrink-0">1</span>
+                  <div>
+                    <div class="font-label text-label-md font-bold text-navy-brand">Rendement du Cycle de Carnot</div>
+                    <div class="font-body text-body-sm text-slate-muted">Choix Multiple (MCQ) • 4 options</div>
+                  </div>
+                </div>
+                <span class="font-code text-label-sm font-bold text-royal-blue tabular-nums">5.00 pts</span>
+              </div>
+
+              <!-- Q2 -->
+              <div class="p-3 rounded-lg border border-light-outline-variant bg-light-surface hover:bg-light-surface-variant flex items-start justify-between cursor-pointer transition-colors">
+                <div class="flex gap-2.5">
+                  <span class="w-6 h-6 rounded bg-slate-200 text-slate-700 font-code text-label-sm font-bold flex items-center justify-center shrink-0">2</span>
+                  <div>
+                    <div class="font-label text-label-md font-semibold text-navy-brand">Entropie dans un Système Isolé</div>
+                    <div class="font-body text-body-sm text-slate-muted">Vrai / Faux (True/False)</div>
+                  </div>
+                </div>
+                <span class="font-code text-label-sm font-bold text-slate-600 tabular-nums">5.00 pts</span>
+              </div>
+
+              <!-- Q3 -->
+              <div class="p-3 rounded-lg border border-light-outline-variant bg-light-surface hover:bg-light-surface-variant flex items-start justify-between cursor-pointer transition-colors">
+                <div class="flex gap-2.5">
+                  <span class="w-6 h-6 rounded bg-slate-200 text-slate-700 font-code text-label-sm font-bold flex items-center justify-center shrink-0">3</span>
+                  <div>
+                    <div class="font-label text-label-md font-semibold text-navy-brand">Cycle de Rankine: Rôle du Surchauffeur</div>
+                    <div class="font-body text-body-sm text-slate-muted">Choix Multiple (MCQ) • 4 options</div>
+                  </div>
+                </div>
+                <span class="font-code text-label-sm font-bold text-slate-600 tabular-nums">5.00 pts</span>
+              </div>
+
+              <!-- Q4 -->
+              <div class="p-3 rounded-lg border border-light-outline-variant bg-light-surface hover:bg-light-surface-variant flex items-start justify-between cursor-pointer transition-colors">
+                <div class="flex gap-2.5">
+                  <span class="w-6 h-6 rounded bg-slate-200 text-slate-700 font-code text-label-sm font-bold flex items-center justify-center shrink-0">4</span>
+                  <div>
+                    <div class="font-label text-label-md font-semibold text-navy-brand">Détente Isenthalpique (Joule-Thomson)</div>
+                    <div class="font-body text-body-sm text-slate-muted">Vrai / Faux (True/False)</div>
+                  </div>
+                </div>
+                <span class="font-code text-label-sm font-bold text-slate-600 tabular-nums">5.00 pts</span>
+              </div>
+            </div>
+
+            <button class="w-full py-2 border-2 border-dashed border-royal-blue/40 text-royal-blue hover:bg-royal-light rounded-lg text-label-md font-semibold flex items-center justify-center gap-1.5 transition-colors">
+              <span class="material-symbols-outlined text-headline-sm">add</span>
+              <span>Ajouter une Question</span>
+            </button>
+          </div>
+
+        </div>
+
+        <!-- Right Column: Active Question Editor Canvas (8 cols) -->
+        <div class="xl:col-span-8 space-y-6">
+
+          <div class="bg-light-surface border border-light-outline-variant rounded-lg p-6 shadow-sm space-y-6">
+
+            <!-- Question Type Selector Tabs -->
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-light-outline-variant gap-4">
+              <div>
+                <span class="text-label-sm font-semibold text-royal-blue uppercase tracking-wider">Édition Question #01</span>
+                <h2 class="font-headline text-headline-sm text-navy-brand font-bold mt-0.5">Configuration du Problème &amp; Réponses</h2>
+              </div>
+
+              <!-- Tabs component -->
+              <div class="inline-flex p-1 bg-light-surface-variant rounded-md border border-light-outline-variant gap-1">
+                <button class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-light-surface text-navy-brand shadow-sm font-semibold text-label-sm">
+                  <span class="material-symbols-outlined text-label-md">check_box</span>
+                  <span>QCM (MCQ)</span>
+                </button>
+                <button class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded text-slate-muted hover:text-navy-brand text-label-sm">
+                  <span class="material-symbols-outlined text-label-md">flaky</span>
+                  <span>Vrai / Faux</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Question Language Support Stem -->
+            <div class="space-y-4">
+              <div class="flex items-center justify-between">
+                <label class="font-label text-label-md text-navy-brand font-bold">Énoncé de la question (Français / Multilingue)</label>
+                <div class="flex items-center gap-2">
+                  <span class="text-body-sm text-slate-muted">Barème pour cette question:</span>
+                  <div class="flex items-center gap-1">
+                    <input type="number" step="0.5" value="5.0" class="w-16 px-2 py-1 border border-light-outline rounded text-right font-code font-bold text-royal-blue">
+                    <span class="font-code text-body-sm text-slate-muted">/ 20</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Question Input Area with Thermodynamics formulas -->
+              <div class="border border-light-outline rounded-lg overflow-hidden focus-within:border-royal-blue focus-within:ring-1 focus-within:ring-royal-blue">
+                <div class="bg-light-surface-variant px-3 py-1.5 border-b border-light-outline-variant flex items-center gap-3 text-body-sm text-slate-muted">
+                  <button class="hover:text-navy-brand font-bold px-1" title="Bold">B</button>
+                  <button class="hover:text-navy-brand italic px-1" title="Italic">I</button>
+                  <button class="hover:text-navy-brand font-code px-1" title="Code / Formula">fx</button>
+                  <span class="text-slate-300">|</span>
+                  <span class="text-label-sm">Formule thermodynamique: η = 1 - (Tc / Th)</span>
+                </div>
+                <textarea rows="3" class="w-full p-3 border-none bg-light-surface text-body-md text-light-on-surface focus:ring-0 resize-none">Un moteur thermique réversible fonctionne selon le cycle de Carnot entre une source chaude à Th = 800 K et une source froide à Tc = 300 K. Quelle est la valeur exacte du rendement thermique théorique (η) de ce moteur ?</textarea>
+              </div>
+
+              <!-- Arabic Mirror Translation Prompt (Multilingual feature) -->
+              <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg text-right" dir="rtl">
+                <span class="text-label-sm font-semibold text-slate-500 block mb-1">الترجمة بالعربية (اختياري للطلبة):</span>
+                <p class="font-body text-body-md text-slate-800">
+                  محرك حراري عكوس يعمل وفق دورة كارنو بين مصدر ساخن Th = 800 K ومصدر بارد Tc = 300 K. ما هي القيمة الدقيقة للمردود الحراري النظري (η) لهذا المحرك؟
+                </p>
+              </div>
+            </div>
+
+            <!-- Answer Options Configuration (Auto-grading key) -->
+            <div class="space-y-3 pt-2">
+              <div class="flex items-center justify-between">
+                <label class="font-label text-label-md text-navy-brand font-bold">Options de réponse &amp; Clé de correction automatique</label>
+                <span class="text-body-sm text-slate-muted">Cochez le bouton radio vert pour la réponse correcte</span>
+              </div>
+
+              <!-- Option A (Correct Answer) -->
+              <div class="p-3 rounded-lg border-2 border-emerald-600 bg-emerald-50 flex items-center gap-3">
+                <input type="radio" name="mcq_answer" checked class="text-emerald-700 focus:ring-emerald-600 w-4 h-4 cursor-pointer">
+                <span class="font-code font-bold text-emerald-900 w-6">A.</span>
+                <input type="text" value="η = 62.5 %  [η = 1 - (300 / 800) = 0.625]" class="flex-1 px-3 py-1.5 border border-emerald-400 rounded bg-white text-body-md font-code font-semibold text-emerald-950">
+                <span class="px-2 py-0.5 rounded bg-emerald-900 text-white font-label text-label-sm font-bold shrink-0">EXACTE (100%)</span>
+              </div>
+
+              <!-- Option B -->
+              <div class="p-3 rounded-lg border border-light-outline-variant bg-light-surface flex items-center gap-3">
+                <input type="radio" name="mcq_answer" class="text-emerald-600 focus:ring-emerald-500 w-4 h-4 cursor-pointer">
+                <span class="font-code font-bold text-slate-500 w-6">B.</span>
+                <input type="text" value="η = 37.5 %  [Inversion Tc et Th]" class="flex-1 px-3 py-1.5 border border-light-outline rounded bg-white text-body-md font-code text-light-on-surface">
+                <span class="text-body-sm text-slate-muted px-2">0 pt</span>
+              </div>
+
+              <!-- Option C -->
+              <div class="p-3 rounded-lg border border-light-outline-variant bg-light-surface flex items-center gap-3">
+                <input type="radio" name="mcq_answer" class="text-emerald-600 focus:ring-emerald-500 w-4 h-4 cursor-pointer">
+                <span class="font-code font-bold text-slate-500 w-6">C.</span>
+                <input type="text" value="η = 75.0 %  [Calcul basé sur l&#39;échelle Celsius]" class="flex-1 px-3 py-1.5 border border-light-outline rounded bg-white text-body-md font-code text-light-on-surface">
+                <span class="text-body-sm text-slate-muted px-2">0 pt</span>
+              </div>
+
+              <!-- Option D -->
+              <div class="p-3 rounded-lg border border-light-outline-variant bg-light-surface flex items-center gap-3">
+                <input type="radio" name="mcq_answer" class="text-emerald-600 focus:ring-emerald-500 w-4 h-4 cursor-pointer">
+                <span class="font-code font-bold text-slate-500 w-6">D.</span>
+                <input type="text" value="η = 100.0 % [Violation du 2ème principe de la thermodynamique]" class="flex-1 px-3 py-1.5 border border-light-outline rounded bg-white text-body-md font-code text-light-on-surface">
+                <span class="text-body-sm text-slate-muted px-2">0 pt</span>
+              </div>
+            </div>
+
+            <!-- Feedback / Explanation Note for Auto-Report -->
+            <div class="p-4 bg-royal-light/40 border border-royal-blue/20 rounded-lg space-y-1.5">
+              <div class="flex items-center gap-1.5 text-royal-blue font-label text-label-md font-bold">
+                <span class="material-symbols-outlined text-headline-sm">info</span>
+                <span>Explication pédagogique insérée dans le rapport étudiant</span>
+              </div>
+              <p class="font-body text-body-sm text-navy-brand">
+                Selon le théorème de Carnot, le rendement d&#39;un cycle réversible dépend uniquement des températures absolues en Kelvin: η = 1 - (Tc / Th) = 1 - (300 / 800) = 0.625 soit 62.5%. Toute réponse calculée en °C entraîne une erreur de conversion.
+              </p>
+            </div>
+
+            <!-- Action buttons -->
+            <div class="flex items-center justify-between pt-4 border-t border-light-outline-variant">
+              <button class="px-4 py-2 border border-red-200 text-red-700 hover:bg-red-50 rounded text-label-md font-semibold transition-colors">
+                Supprimer
+              </button>
+              <div class="flex items-center gap-3">
+                <button class="px-4 py-2 border border-light-outline text-navy-brand rounded text-label-md font-semibold hover:bg-light-surface-variant">
+                  Enregistrer
+                </button>
+                <button class="px-5 py-2 bg-navy-brand text-white rounded text-label-md font-semibold hover:opacity-90 shadow-sm">
+                  Valider &amp; Continuer
+                </button>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </main>
+
+      <!-- Institutional Footer Note (Verbatim shell) -->
+      <footer class="h-12 bg-light-surface border-t border-light-outline-variant px-8 flex items-center justify-between text-body-sm text-slate-muted">
+        <div>UniQuiz DZ • Plateforme Nationale d&#39;Évaluation Universitaire • Ministère de l&#39;Enseignement Supérieur (MESRS)</div>
+        <div class="flex items-center gap-4">
+          <span>Serveur Alger-Centre (Opérationnel)</span>
+          <span class="font-code text-label-sm">v2.4.8-dz</span>
+        </div>
+      </footer>
+    </div>
+
+  </div>
+
+
+</body></html>

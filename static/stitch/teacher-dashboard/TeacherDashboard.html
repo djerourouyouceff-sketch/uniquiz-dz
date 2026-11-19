@@ -1,0 +1,597 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teacher Dashboard - UniQuiz DZ</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">/** @type {import('tailwindcss').Config} */
+globalThis.tailwind = globalThis.tailwind || {};
+globalThis.tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        'navy-brand': '#0B1B3D',
+        'royal-blue': '#1D4ED8',
+        'royal-hover': '#1E40AF',
+        'royal-light': '#EFF6FF',
+        'slate-border': '#CBD5E1',
+        'slate-muted': '#475569',
+        'grade-high': '#15803D',
+        'grade-mid': '#92400E',
+        'grade-low': '#991B1B',
+        'light-primary': '#0B1B3D',
+        'light-on-primary': '#FFFFFF',
+        'light-secondary': '#1D4ED8',
+        'light-on-secondary': '#FFFFFF',
+        'light-surface': '#FFFFFF',
+        'light-on-surface': '#0F172A',
+        'light-surface-variant': '#F1F5F9',
+        'light-on-surface-variant': '#334155',
+        'light-outline': '#94A3B8',
+        'light-outline-variant': '#CBD5E1',
+        'light-success': '#15803D',
+        'light-on-success': '#FFFFFF',
+        'light-warning': '#92400E',
+        'light-on-warning': '#FFFFFF',
+        'light-error': '#991B1B',
+        'light-on-error': '#FFFFFF',
+        'dark-primary': '#93C5FD',
+        'dark-on-primary': '#0B1B3D',
+        'dark-secondary': '#60A5FA',
+        'dark-on-secondary': '#0B1B3D',
+        'dark-surface': '#0B132B',
+        'dark-on-surface': '#F8FAFC',
+        'dark-surface-variant': '#1E293B',
+        'dark-on-surface-variant': '#CBD5E1',
+        'dark-outline': '#334155',
+        'dark-outline-variant': '#1E293B',
+        'dark-success': '#4ADE80',
+        'dark-on-success': '#064E3B',
+        'dark-warning': '#FBBF24',
+        'dark-on-warning': '#78350F',
+        'dark-error': '#F87171',
+        'dark-on-error': '#641717',
+      },
+      borderRadius: {
+        'sm': '4px',
+        'DEFAULT': '6px',
+        'md': '8px',
+        'lg': '12px',
+        'xl': '16px',
+        'full': '9999px',
+      },
+      spacing: {
+        'gutter-xs': '4px',
+        'gutter-sm': '8px',
+        'gutter-md': '16px',
+        'gutter-lg': '24px',
+        'gutter-xl': '32px',
+        'section': '40px',
+        'page-margin': '24px',
+      },
+      fontFamily: {
+        'display': ['"Red Hat Display"', 'sans-serif'],
+        'headline': ['"Red Hat Display"', 'sans-serif'],
+        'title': ['"Red Hat Display"', 'sans-serif'],
+        'body': ['"Radio Canada Big"', 'sans-serif'],
+        'label': ['"Radio Canada Big"', 'sans-serif'],
+        'code': ['"Source Code Pro"', 'monospace'],
+      },
+      fontSize: {
+        'display-lg': ['36px', { lineHeight: '44px', letterSpacing: '-0.5px', fontWeight: '700' }],
+        'display-lg-mobile': ['28px', { lineHeight: '34px', letterSpacing: '-0.25px', fontWeight: '700' }],
+        'headline-xl': ['32px', { lineHeight: '40px', letterSpacing: '-0.5px', fontWeight: '700' }],
+        'headline-xl-mobile': ['24px', { lineHeight: '32px', letterSpacing: '-0.25px', fontWeight: '700' }],
+        'headline-lg': ['24px', { lineHeight: '32px', letterSpacing: '-0.2px', fontWeight: '600' }],
+        'headline-lg-mobile': ['20px', { lineHeight: '28px', letterSpacing: '-0.1px', fontWeight: '600' }],
+        'headline-md': ['20px', { lineHeight: '28px', letterSpacing: '0px', fontWeight: '600' }],
+        'headline-sm': ['18px', { lineHeight: '26px', letterSpacing: '0px', fontWeight: '600' }],
+        'title-lg': ['16px', { lineHeight: '24px', letterSpacing: '0px', fontWeight: '600' }],
+        'body-lg': ['16px', { lineHeight: '24px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-md': ['14px', { lineHeight: '20px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-sm': ['12px', { lineHeight: '16px', letterSpacing: '0px', fontWeight: '400' }],
+        'label-lg': ['14px', { lineHeight: '20px', letterSpacing: '0.1px', fontWeight: '600' }],
+        'label-md': ['12px', { lineHeight: '16px', letterSpacing: '0.2px', fontWeight: '600' }],
+        'label-sm': ['11px', { lineHeight: '14px', letterSpacing: '0.2px', fontWeight: '600' }],
+        'code-md': ['14px', { lineHeight: '20px', letterSpacing: '0px', fontWeight: '500' }],
+      },
+      transitionDuration: {
+        'state-change': '120ms',
+        'surface-enter': '200ms',
+        'surface-exit': '120ms',
+      },
+      transitionDelay: {
+        'state-change': '0ms',
+        'surface-enter': '0ms',
+        'surface-exit': '0ms',
+      },
+      transitionTimingFunction: {
+        'state-change': 'ease-out',
+        'surface-enter': 'cubic-bezier(0.16, 1, 0.3, 1)',
+        'surface-exit': 'cubic-bezier(0.4, 0, 1, 1)',
+      },
+    },
+  },
+};
+if (typeof module !== 'undefined') module.exports = globalThis.tailwind.config;
+</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Radio+Canada+Big:ital,wght@0,400..700;1,400..700&amp;family=Red+Hat+Display:ital,wght@0,400..900;1,400..900&amp;family=Source+Code+Pro:wght@400..700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet">
+  <style>
+    .material-symbols-outlined, .material-symbols-rounded, .material-symbols-sharp, .material-icons {
+      display: inline-block; width: 1em; height: 1em; line-height: 1 !important; box-sizing: content-box; overflow: hidden; white-space: nowrap; direction: ltr; vertical-align: middle;
+    }
+  </style>
+</head>
+<body class="bg-light-surface-variant font-body text-light-on-surface antialiased min-h-[1024px]" data-stitch-vh="min-h-[1024px]===min-h-screen">
+  <div class="min-h-[1024px] flex flex-row" data-stitch-vh="min-h-[1024px]===min-h-screen">
+
+    <!-- Primary Persistent Sidebar (Verbatim Shell component) -->
+    <aside class="w-64 min-h-[1024px] bg-navy-brand text-light-on-primary flex flex-col justify-between shrink-0 shadow-lg z-20" data-stitch-vh="min-h-[1024px]===min-h-screen">
+      <div class="flex flex-col gap-4">
+        <!-- Institutional Logo & Brand Mark -->
+        <div class="h-16 px-6 flex items-center gap-3 border-b border-white/10">
+          <div class="w-9 h-9 rounded bg-royal-blue flex items-center justify-center text-white shadow-sm">
+            <span class="material-symbols-outlined text-headline-lg">school</span>
+          </div>
+          <div class="flex flex-col">
+            <span class="font-headline font-bold text-title-lg tracking-tight leading-none text-white">UniQuiz DZ</span>
+            <span class="font-body text-body-sm text-slate-300 mt-1">Univ. Houari Boumediene</span>
+          </div>
+        </div>
+
+        <!-- Academic Role & Faculty Badge -->
+        <div class="px-5 py-3 mx-4 bg-white/5 rounded-lg border border-white/10 flex items-center justify-between">
+          <div class="flex items-center gap-2.5">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+            <div>
+              <div class="font-label text-label-sm font-semibold text-white">Enseignant / Teacher</div>
+              <div class="font-body text-body-sm text-slate-300">Génie Mécanique</div>
+            </div>
+          </div>
+          <span class="text-label-sm px-1.5 py-0.5 rounded bg-royal-blue/30 text-blue-200 border border-royal-blue/40 font-code font-bold">DZ</span>
+        </div>
+
+        <!-- Navigation Links -->
+        <nav class="px-3 space-y-1">
+          <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-royal-blue text-white font-medium text-label-lg shadow-sm">
+            <span class="material-symbols-outlined text-headline-sm">dashboard</span>
+            <span>Dashboard Overview</span>
+          </a>
+          <a href="../quiz-builder/QuizCreationInterface.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-300 hover:text-white hover:bg-white/5 font-medium text-label-lg transition-colors">
+            <span class="material-symbols-outlined text-headline-sm">quiz</span>
+            <span>Quiz &amp; Question Banks</span>
+          </a>
+          <a href="../analytics-reports/ClassAnalyticsAndRanking.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-300 hover:text-white hover:bg-white/5 font-medium text-label-lg transition-colors">
+            <span class="material-symbols-outlined text-headline-sm">leaderboard</span>
+            <span>Analytics &amp; Rankings</span>
+          </a>
+          <a href="../student-exam/StudentExamExperience.html" target="_blank" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-300 hover:text-white hover:bg-white/5 font-medium text-label-lg transition-colors">
+            <span class="material-symbols-outlined text-headline-sm">devices</span>
+            <span>Student Mobile View</span>
+          </a>
+          <a href="../auth-notifications/AuthAndNotificationSettings.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-300 hover:text-white hover:bg-white/5 font-medium text-label-lg transition-colors">
+            <span class="material-symbols-outlined text-headline-sm">tune</span>
+            <span>Settings &amp; Notifications</span>
+          </a>
+        </nav>
+      </div>
+
+      <!-- User Profile & Language Switcher Footnote -->
+      <div class="p-4 border-t border-white/10">
+        <!-- Language Switcher Bar -->
+        <div class="flex items-center justify-between bg-white/5 p-1 rounded-md mb-3 border border-white/10 text-body-sm">
+          <button class="px-2 py-1 rounded bg-royal-blue text-white font-semibold text-label-sm">FR</button>
+          <button class="px-2 py-1 rounded text-slate-300 hover:text-white text-label-sm">EN</button>
+          <button class="px-2 py-1 rounded text-slate-300 hover:text-white text-label-sm" title="العربية - RTL layout support">العربية</button>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-royal-light text-royal-blue font-bold flex items-center justify-center font-headline border border-royal-blue/30 text-title-lg">
+            KB
+          </div>
+          <div class="flex-1 min-w-0">
+            <div class="font-headline font-semibold text-label-lg text-white truncate">Dr. Khaled Benali</div>
+            <div class="font-body text-body-sm text-slate-300 truncate">k.benali@usthb.dz</div>
+          </div>
+          <a href="../auth-notifications/AuthAndNotificationSettings.html" class="text-slate-300 hover:text-white" title="Sign out / Switch account">
+            <span class="material-symbols-outlined text-headline-sm">logout</span>
+          </a>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Workspace Container -->
+    <div class="flex-1 flex flex-col min-w-0">
+
+      <!-- Header Action Bar -->
+      <header class="h-16 bg-light-surface border-b border-light-outline-variant px-8 flex items-center justify-between sticky top-0 z-10">
+        <div class="flex items-center gap-4">
+          <h1 class="font-headline text-headline-md text-navy-brand font-bold tracking-tight">Teacher Control Center</h1>
+          <span class="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-royal-light text-royal-blue text-label-sm font-semibold border border-blue-200">
+            <span class="w-2 h-2 rounded-full bg-royal-blue inline-block"></span>
+            Semestre 1 • 2026/2027
+          </span>
+        </div>
+
+        <!-- Global Action Controls -->
+        <div class="flex items-center gap-3">
+          <div class="relative">
+            <button class="p-2 text-slate-muted hover:text-navy-brand hover:bg-light-surface-variant rounded-full transition-colors relative" aria-label="Notifications">
+              <span class="material-symbols-outlined text-headline-lg">notifications</span>
+              <span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-royal-blue"></span>
+            </button>
+          </div>
+
+          <a href="../quiz-builder/QuizCreationInterface.html" class="inline-flex items-center gap-2 px-4 py-2 bg-royal-blue text-white rounded hover:bg-royal-hover text-label-lg font-semibold transition-colors shadow-sm">
+            <span class="material-symbols-outlined text-headline-sm">add_circle</span>
+            <span>Create New Quiz</span>
+          </a>
+        </div>
+      </header>
+
+      <!-- Main Body Content -->
+      <main class="p-8 space-y-8 flex-1">
+
+        <!-- Top Metric Summary Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-5">
+          <!-- Metric 1: Active Quizzes -->
+          <div class="bg-light-surface border border-light-outline-variant rounded-lg p-5 shadow-sm">
+            <div class="flex items-center justify-between">
+              <span class="font-label text-label-sm text-slate-muted font-semibold uppercase tracking-wider">Active Quizzes</span>
+              <span class="p-2 rounded bg-blue-50 text-royal-blue">
+                <span class="material-symbols-outlined text-headline-sm">assignment</span>
+              </span>
+            </div>
+            <div class="mt-2 flex items-baseline gap-2">
+              <span class="font-headline font-bold text-headline-xl text-navy-brand tabular-nums">4</span>
+              <span class="text-label-sm text-slate-muted">exams scheduled</span>
+            </div>
+            <div class="mt-2 flex items-center gap-1 text-label-sm text-emerald-700 font-medium">
+              <span class="material-symbols-outlined text-label-sm">trending_up</span>
+              <span>1 live examination now</span>
+            </div>
+          </div>
+
+          <!-- Metric 2: Enrolled Students -->
+          <div class="bg-light-surface border border-light-outline-variant rounded-lg p-5 shadow-sm">
+            <div class="flex items-center justify-between">
+              <span class="font-label text-label-sm text-slate-muted font-semibold uppercase tracking-wider">Evaluated Students</span>
+              <span class="p-2 rounded bg-indigo-50 text-indigo-700">
+                <span class="material-symbols-outlined text-headline-sm">groups</span>
+              </span>
+            </div>
+            <div class="mt-2 flex items-baseline gap-2">
+              <span class="font-headline font-bold text-headline-xl text-navy-brand tabular-nums">174</span>
+              <span class="text-label-sm text-slate-muted">enrolled L3/M1</span>
+            </div>
+            <div class="mt-2 flex items-center gap-1 text-label-sm text-slate-muted">
+              <span>Promo. Génie Mécanique</span>
+            </div>
+          </div>
+
+          <!-- Metric 3: Overall Average /20 -->
+          <div class="bg-light-surface border border-light-outline-variant rounded-lg p-5 shadow-sm">
+            <div class="flex items-center justify-between">
+              <span class="font-label text-label-sm text-slate-muted font-semibold uppercase tracking-wider">Department Average</span>
+              <span class="p-2 rounded bg-emerald-50 text-grade-high">
+                <span class="material-symbols-outlined text-headline-sm">insights</span>
+              </span>
+            </div>
+            <div class="mt-2 flex items-baseline gap-2">
+              <span class="font-headline font-bold text-headline-xl text-grade-high tabular-nums font-code">14.18</span>
+              <span class="text-label-md text-slate-muted">/ 20.00</span>
+            </div>
+            <div class="mt-2 flex items-center gap-1 text-label-sm text-grade-high font-medium">
+              <span class="material-symbols-outlined text-label-sm">check_circle</span>
+              <span>+1.35 pt vs. Semestre d&#39;Automne</span>
+            </div>
+          </div>
+
+          <!-- Metric 4: Auto-Graded Submissions -->
+          <div class="bg-light-surface border border-light-outline-variant rounded-lg p-5 shadow-sm">
+            <div class="flex items-center justify-between">
+              <span class="font-label text-label-sm text-slate-muted font-semibold uppercase tracking-wider">Correction Automatique</span>
+              <span class="p-2 rounded bg-amber-50 text-amber-700">
+                <span class="material-symbols-outlined text-headline-sm">bolt</span>
+              </span>
+            </div>
+            <div class="mt-2 flex items-baseline gap-2">
+              <span class="font-headline font-bold text-headline-xl text-navy-brand tabular-nums">98.4%</span>
+              <span class="text-label-sm text-slate-muted">instant grading</span>
+            </div>
+            <div class="mt-2 flex items-center gap-1 text-label-sm text-slate-muted">
+              <span>MCQ &amp; True/False automated</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Middle Section: Active Course Modules & Quizzes Grid -->
+        <div>
+          <div class="flex items-center justify-between mb-4">
+            <div>
+              <h2 class="font-headline text-headline-sm text-navy-brand font-bold">Active Courses &amp; Scheduled Examinations</h2>
+              <p class="font-body text-body-sm text-slate-muted">Module management for USTHB Faculty of Mechanical &amp; Process Engineering</p>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-label-sm text-slate-muted font-medium">Filter by Module:</span>
+              <select class="text-label-sm border border-light-outline rounded px-2.5 py-1.5 bg-light-surface text-navy-brand font-medium focus:ring-2 focus:ring-royal-blue">
+                <option>All Modules (ME-301, ME-302, ME-405)</option>
+                <option>Thermodynamique Appliquée (ME-302)</option>
+                <option>Mécanique des Fluides (ME-301)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Cards Grid -->
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+            <!-- Card 1: Thermodynamics Quiz #3 (Active Live) -->
+            <article class="bg-light-surface border-2 border-royal-blue rounded-lg p-5 shadow-sm flex flex-col justify-between relative overflow-hidden">
+              <div class="absolute top-0 right-0 bg-royal-blue text-white text-label-sm font-bold px-3 py-1 rounded-bl flex items-center gap-1">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span>EXAMEN EN COURS</span>
+              </div>
+              <div>
+                <div class="flex items-center gap-2 mb-2">
+                  <span class="px-2 py-0.5 rounded bg-royal-light text-royal-blue text-label-sm font-semibold font-code">ME-302</span>
+                  <span class="text-body-sm text-slate-muted">L3 Énergétique • Section A</span>
+                </div>
+                <h3 class="font-headline text-title-lg text-navy-brand font-bold mb-1">Cycle de Carnot &amp; Entropie des Gaz Parfaits</h3>
+                <p class="font-body text-body-sm text-light-on-surface-variant line-clamp-2">
+                  Calcul des rendements thermiques, détentes isentropiques et bilans d&#39;énergie mécanique sur système fermé.
+                </p>
+
+                <!-- Exam Meta Pill Box -->
+                <div class="mt-4 p-3 bg-light-surface-variant rounded-md space-y-1.5 border border-light-outline-variant text-body-sm">
+                  <div class="flex justify-between">
+                    <span class="text-slate-muted">Durée &amp; Questions:</span>
+                    <span class="font-semibold text-navy-brand">45 min • 20 Questions (MCQ &amp; V/F)</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="text-slate-muted">Barème national:</span>
+                    <span class="font-code font-bold text-royal-blue">Note / 20.00 pts</span>
+                  </div>
+                  <div class="flex justify-between items-center">
+                    <span class="text-slate-muted">Participations en direct:</span>
+                    <span class="font-code font-bold text-grade-high">58 / 62 étudiants connectés</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Footer action row -->
+              <div class="mt-5 pt-4 border-t border-light-outline-variant flex items-center justify-between">
+                <a href="../student-exam/StudentExamExperience.html" class="font-label text-label-sm text-royal-blue hover:underline flex items-center gap-1">
+                  <span class="material-symbols-outlined text-label-md">visibility</span>
+                  <span>Aperçu Étudiant</span>
+                </a>
+                <div class="flex gap-2">
+                  <a href="../analytics-reports/ClassAnalyticsAndRanking.html" class="px-3 py-1.5 bg-royal-blue text-white rounded text-label-md font-semibold hover:bg-royal-hover transition-colors">
+                    Suivi en direct
+                  </a>
+                </div>
+              </div>
+            </article>
+
+            <!-- Card 2: Rankine Cycle Examination (Draft / Ready to Launch) -->
+            <article class="bg-light-surface border border-light-outline-variant rounded-lg p-5 shadow-sm flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between mb-2">
+                  <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 text-label-sm font-semibold font-code">ME-302</span>
+                  <span class="px-2 py-0.5 rounded bg-amber-50 text-amber-800 text-label-sm font-medium border border-amber-200">Prêt / Programmé</span>
+                </div>
+                <h3 class="font-headline text-title-lg text-navy-brand font-bold mb-1">Centrales Thermiques: Cycle de Rankine &amp; Rechauffe</h3>
+                <p class="font-body text-body-sm text-light-on-surface-variant line-clamp-2">
+                  Générateurs de vapeur, titres de vapeur, pompes d&#39;alimentation et condensation sous vide.
+                </p>
+
+                <div class="mt-4 p-3 bg-light-surface-variant rounded-md space-y-1.5 border border-light-outline-variant text-body-sm">
+                  <div class="flex justify-between">
+                    <span class="text-slate-muted">Programmé pour:</span>
+                    <span class="font-semibold text-navy-brand">Demain, 10h00 (Alger)</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="text-slate-muted">Groupe cible:</span>
+                    <span class="text-navy-brand">L3 Mécanique Groupe 1 &amp; 2</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="text-slate-muted">Auto-correction:</span>
+                    <span class="font-medium text-emerald-800">Activée (15 MCQ, 5 V/F)</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-5 pt-4 border-t border-light-outline-variant flex items-center justify-between">
+                <a href="../quiz-builder/QuizCreationInterface.html" class="font-label text-label-sm text-royal-blue hover:underline flex items-center gap-1">
+                  <span class="material-symbols-outlined text-label-md">edit</span>
+                  <span>Modifier les questions</span>
+                </a>
+                <button class="px-3 py-1.5 border border-light-outline text-navy-brand rounded text-label-md font-semibold hover:bg-light-surface-variant">
+                  Lancer l&#39;examen
+                </button>
+              </div>
+            </article>
+
+            <!-- Card 3: Fluid Dynamics Quiz #2 (Completed & Graded) -->
+            <article class="bg-light-surface border border-light-outline-variant rounded-lg p-5 shadow-sm flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between mb-2">
+                  <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 text-label-sm font-semibold font-code">ME-301</span>
+                  <span class="px-2 py-0.5 rounded bg-emerald-50 text-grade-high text-label-sm font-medium border border-emerald-200">Terminé &amp; Corrigé</span>
+                </div>
+                <h3 class="font-headline text-title-lg text-navy-brand font-bold mb-1">Équations de Navier-Stokes &amp; Écoulements Laminaires</h3>
+                <p class="font-body text-body-sm text-light-on-surface-variant line-clamp-2">
+                  Évaluation continue: pertes de charge régulières et singulières dans les conduites industrielles.
+                </p>
+
+                <div class="mt-4 p-3 bg-light-surface-variant rounded-md space-y-1.5 border border-light-outline-variant text-body-sm">
+                  <div class="flex justify-between">
+                    <span class="text-slate-muted">Moyenne de la promo:</span>
+                    <span class="font-code font-bold text-grade-high">15.22 / 20.00</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="text-slate-muted">Taux de réussite:</span>
+                    <span class="font-semibold text-navy-brand">89.5% (Taux admis &gt;= 10)</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="text-slate-muted">Rapport envoyé par email:</span>
+                    <span class="text-emerald-800 font-medium">Oui (PDF &amp; Excel PV)</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-5 pt-4 border-t border-light-outline-variant flex items-center justify-between">
+                <span class="text-label-sm text-slate-muted">Clôturé le 16 Nov 2026</span>
+                <a href="../analytics-reports/ClassAnalyticsAndRanking.html" class="px-3 py-1.5 bg-navy-brand text-white rounded text-label-md font-semibold hover:opacity-90 transition-opacity">
+                  Consulter les PV
+                </a>
+              </div>
+            </article>
+
+          </div>
+        </div>
+
+        <!-- Bottom Table: Recent Student Examination Submissions -->
+        <div class="bg-light-surface border border-light-outline-variant rounded-lg overflow-hidden shadow-sm">
+          <div class="p-5 border-b border-light-outline-variant flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <h2 class="font-headline text-headline-sm text-navy-brand font-bold">Dernières Évaluations Corrigées Automatiquement</h2>
+              <p class="font-body text-body-sm text-slate-muted">Notes officielles calculées sur l&#39;échelle universitaire algérienne (/20)</p>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="relative">
+                <input type="text" placeholder="Filtrer étudiant ou matricule..." class="pl-8 pr-3 py-1.5 text-body-sm border border-light-outline rounded bg-light-surface text-light-on-surface focus:outline-none focus-visible:ring-2 focus-visible:ring-royal-blue w-60">
+                <span class="material-symbols-outlined absolute left-2 top-2 text-slate-muted text-label-lg">search</span>
+              </div>
+              <button class="px-3 py-1.5 border border-light-outline text-navy-brand rounded text-label-md font-semibold hover:bg-light-surface-variant flex items-center gap-1.5">
+                <span class="material-symbols-outlined text-label-lg">download</span>
+                <span>Exporter PV (XLS/PDF)</span>
+              </button>
+            </div>
+          </div>
+
+          <table class="w-full text-left border-collapse">
+            <thead class="bg-light-surface-variant border-b border-light-outline-variant">
+              <tr>
+                <th scope="col" class="py-3 px-5 font-label text-label-sm text-slate-muted uppercase tracking-wider">Matricule &amp; Étudiant</th>
+                <th scope="col" class="py-3 px-5 font-label text-label-sm text-slate-muted uppercase tracking-wider">Module / Examen</th>
+                <th scope="col" class="py-3 px-5 font-label text-label-sm text-slate-muted uppercase tracking-wider">Durée Réalisée</th>
+                <th scope="col" class="py-3 px-5 font-label text-label-sm text-slate-muted uppercase tracking-wider text-center">Note / 20</th>
+                <th scope="col" class="py-3 px-5 font-label text-label-sm text-slate-muted uppercase tracking-wider">Mention Officielle</th>
+                <th scope="col" class="py-3 px-5 font-label text-label-sm text-slate-muted uppercase tracking-wider text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-light-outline-variant font-body text-body-md">
+              <tr class="hover:bg-light-surface-variant/40 transition-colors">
+                <td class="py-3.5 px-5">
+                  <div class="font-semibold text-navy-brand">Amine Benali</div>
+                  <div class="font-code text-body-sm text-slate-muted">Matricule: 202131048821 • G02</div>
+                </td>
+                <td class="py-3.5 px-5">
+                  <div class="text-navy-brand font-medium">ME-302: Cycle de Carnot</div>
+                  <div class="text-body-sm text-slate-muted">20 questions complétées</div>
+                </td>
+                <td class="py-3.5 px-5 text-slate-muted tabular-nums">34 min 12 s / 45 min</td>
+                <td class="py-3.5 px-5 text-center font-code font-bold text-grade-high text-title-lg tabular-nums">
+                  18.50 <span class="text-body-sm text-slate-muted font-normal">/ 20</span>
+                </td>
+                <td class="py-3.5 px-5">
+                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-label-sm font-semibold bg-emerald-50 text-grade-high border border-emerald-200">
+                    Très Bien
+                  </span>
+                </td>
+                <td class="py-3.5 px-5 text-right">
+                  <a href="../analytics-reports/ClassAnalyticsAndRanking.html" class="text-royal-blue hover:text-royal-hover text-label-md font-semibold">Voir Fiche</a>
+                </td>
+              </tr>
+
+              <tr class="hover:bg-light-surface-variant/40 transition-colors">
+                <td class="py-3.5 px-5">
+                  <div class="font-semibold text-navy-brand">Yasmine Khelifi</div>
+                  <div class="font-code text-body-sm text-slate-muted">Matricule: 202131054190 • G01</div>
+                </td>
+                <td class="py-3.5 px-5">
+                  <div class="text-navy-brand font-medium">ME-302: Cycle de Carnot</div>
+                  <div class="text-body-sm text-slate-muted">20 questions complétées</div>
+                </td>
+                <td class="py-3.5 px-5 text-slate-muted tabular-nums">41 min 05 s / 45 min</td>
+                <td class="py-3.5 px-5 text-center font-code font-bold text-grade-high text-title-lg tabular-nums">
+                  16.00 <span class="text-body-sm text-slate-muted font-normal">/ 20</span>
+                </td>
+                <td class="py-3.5 px-5">
+                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-label-sm font-semibold bg-emerald-50 text-grade-high border border-emerald-200">
+                    Bien
+                  </span>
+                </td>
+                <td class="py-3.5 px-5 text-right">
+                  <a href="../analytics-reports/ClassAnalyticsAndRanking.html" class="text-royal-blue hover:text-royal-hover text-label-md font-semibold">Voir Fiche</a>
+                </td>
+              </tr>
+
+              <tr class="hover:bg-light-surface-variant/40 transition-colors">
+                <td class="py-3.5 px-5">
+                  <div class="font-semibold text-navy-brand">Sofiane Bouzid</div>
+                  <div class="font-code text-body-sm text-slate-muted">Matricule: 202031089204 • G02</div>
+                </td>
+                <td class="py-3.5 px-5">
+                  <div class="text-navy-brand font-medium">ME-302: Cycle de Carnot</div>
+                  <div class="text-body-sm text-slate-muted">19 questions complétées</div>
+                </td>
+                <td class="py-3.5 px-5 text-slate-muted tabular-nums">44 min 50 s / 45 min</td>
+                <td class="py-3.5 px-5 text-center font-code font-bold text-grade-mid text-title-lg tabular-nums">
+                  12.50 <span class="text-body-sm text-slate-muted font-normal">/ 20</span>
+                </td>
+                <td class="py-3.5 px-5">
+                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-label-sm font-semibold bg-amber-50 text-grade-mid border border-amber-200">
+                    Assez Bien
+                  </span>
+                </td>
+                <td class="py-3.5 px-5 text-right">
+                  <a href="../analytics-reports/ClassAnalyticsAndRanking.html" class="text-royal-blue hover:text-royal-hover text-label-md font-semibold">Voir Fiche</a>
+                </td>
+              </tr>
+
+              <tr class="hover:bg-light-surface-variant/40 transition-colors">
+                <td class="py-3.5 px-5">
+                  <div class="font-semibold text-navy-brand">Meriem Mansouri</div>
+                  <div class="font-code text-body-sm text-slate-muted">Matricule: 202131093312 • G03</div>
+                </td>
+                <td class="py-3.5 px-5">
+                  <div class="text-navy-brand font-medium">ME-302: Cycle de Carnot</div>
+                  <div class="text-body-sm text-slate-muted">17 questions complétées</div>
+                </td>
+                <td class="py-3.5 px-5 text-slate-muted tabular-nums">45 min 00 s (Temps écoulé)</td>
+                <td class="py-3.5 px-5 text-center font-code font-bold text-grade-low text-title-lg tabular-nums">
+                  09.00 <span class="text-body-sm text-slate-muted font-normal">/ 20</span>
+                </td>
+                <td class="py-3.5 px-5">
+                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-label-sm font-semibold bg-red-50 text-grade-low border border-red-200">
+                    Ajourné (&lt; 10)
+                  </span>
+                </td>
+                <td class="py-3.5 px-5 text-right">
+                  <a href="../analytics-reports/ClassAnalyticsAndRanking.html" class="text-royal-blue hover:text-royal-hover text-label-md font-semibold">Voir Fiche</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </main>
+
+      <!-- Institutional Footer Note -->
+      <footer class="h-12 bg-light-surface border-t border-light-outline-variant px-8 flex items-center justify-between text-body-sm text-slate-muted">
+        <div>UniQuiz DZ • Plateforme Nationale d&#39;Évaluation Universitaire • Ministère de l&#39;Enseignement Supérieur (MESRS)</div>
+        <div class="flex items-center gap-4">
+          <span>Serveur Alger-Centre (Opérationnel)</span>
+          <span class="font-code text-label-sm">v2.4.8-dz</span>
+        </div>
+      </footer>
+    </div>
+
+  </div>
+
+
+</body></html>
